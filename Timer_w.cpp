@@ -8,6 +8,7 @@
 #include "SClock.h"
 
 
+
 #define M_PI       3.14
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -35,9 +36,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	static SBox box;
 	static SPoint center;
 	static char str[80] = "";
-	static char str_text[] = "";
 	static char str_Debug[80] = "";
-	SIZE SX;
 	// --------------------------
 	// Debug
 	// --------------------------
@@ -57,36 +56,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		// -------------------------------------------
 		clock.PrintBox(hDC);
 		clock.PrintDial(hDC);
-
-		//GetTextExtentPoint32(hDC, str_text, sizeof(str_text), &SX);
-		//TextOut(hDC, clock.x - (SX.cx / 2), clock.y - (SX.cy / 2), str_text, sizeof(str_text));
-
+		clock.PrintNum(hDC);
+		// -------------------------------------------
+		
+		// -------------------------------------------
 		// debug
-
+		// -------------------------------------------
 		TextOut(hDC, 430, 1, "Debug", 5);
 
 		TextOut(hDC, 400, 80, "Angle:", 6);
 		_itoa_s(clock.angle_SEC + 90, str_Debug, 10);
 		TextOut(hDC, 440, 80, str_Debug, strlen(str_Debug));
 
-		//TextOut(hDC, 400, 100, "TEXT CX:", 8);
-		//_itoa_s(SX.cx, str_Debug, 10);
-		//TextOut(hDC, 465, 100, str_Debug, strlen(str_Debug));
-
-		//TextOut(hDC, 400, 120, "TEXT CY:", 8);
-		//_itoa_s(SX.cy, str_Debug, 10);
-		//TextOut(hDC, 465, 120, str_Debug, strlen(str_Debug));
-
+		// -------------------------------------------
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_TIMER:
 		t = time(NULL);
 		newtime = localtime(&t);
-
+		// -------------------------------------------
 		clock.STimSec(newtime->tm_sec);
 		clock.STimMin(newtime->tm_min);
 		clock.STimHour(newtime->tm_hour);
-
+		// -------------------------------------------
 		strcpy_s(str, asctime(newtime));
 		str[strlen(str) - 1] = '\0';
 		InvalidateRect(hWnd, NULL, 1);

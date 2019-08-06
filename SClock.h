@@ -40,10 +40,18 @@ public:
 
 	void PrintBox(HDC hDC);
 	void PrintDial(HDC hDC);
+	void PrintNum(HDC hDC);
 private:
 	SBox Box;
 	SPoint OnePoint;
 	SPoint Center;
 	SIZE SZ;
+	int num = 49;
+	char str_text[2];
+	SPoint HN[12];
+	boolean hn;
+	SIZE SX;
+
+	void SetPosHour();
 };
 
