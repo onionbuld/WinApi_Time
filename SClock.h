@@ -41,6 +41,7 @@ public:
 	void PrintBox(HDC hDC);
 	void PrintDial(HDC hDC);
 	void PrintNum(HDC hDC);
+	void SetPosClock(int x, int y);
 private:
 	SBox Box;
 	SPoint OnePoint;

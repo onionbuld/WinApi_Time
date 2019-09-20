@@ -13,6 +13,29 @@ SClock::SClock(int x, int y, int lenght)
 	SetPosHour();
 }
 
+// Получаю x, y координат мыши.
+void SClock::SetPosClock(int x, int y) {
+	// Перемещение центра циферблата
+	Center.x = x + (lenght / 2);
+	Center.y = y + (lenght / 2);
+	// Перемещение рамки
+	Box.HLeft.x = x;
+	Box.HLeft.y = y;
+	// HRight
+	Box.HRight.x = x + lenght;
+	Box.HRight.y = y;
+	// LRight
+	Box.LRight.x = x + lenght;
+	Box.LRight.y = y + lenght;
+	// LLeft
+	Box.LLeft.x = x;
+	Box.LLeft.y = y + lenght;
+	// Перемещение цифер
+	hn = true;
+	SetPosHour();
+	hn = false;
+}
+
 
 SClock::~SClock(){}
 
@@ -139,6 +162,7 @@ void SClock::PrintDial(HDC hDC) {
 }
 
 // ASKII
+// Настройка чисел
 void SClock::PrintNum(HDC hDC) {
 	
 	GetTextExtentPoint32(hDC, str_text, sizeof(str_text), &SX);
