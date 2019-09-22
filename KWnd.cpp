@@ -1,4 +1,5 @@
 #include "KWnd.h"
+#include "resource.h"
 
 KWnd::KWnd(
 	LPCTSTR windowName,
@@ -26,7 +27,7 @@ KWnd::KWnd(
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = NULL;
+	wc.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 	wc.lpszClassName = szClassName;
 	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
@@ -50,3 +51,4 @@ KWnd::KWnd(
 	// Показываем window
 	ShowWindow(hWnd, cmdShow);
 }
+

@@ -19,6 +19,7 @@ public:
 	SClock(int x, int y, int lenght);
 	~SClock();
 	void Initialize(SPoint hLeft, int lenght);
+	void SetPosClock(int x, int y);
 	SBox GetBox();
 	SPoint GetCenter();
 
@@ -41,7 +42,6 @@ public:
 	void PrintBox(HDC hDC);
 	void PrintDial(HDC hDC);
 	void PrintNum(HDC hDC);
-	void SetPosClock(int x, int y);
 private:
 	SBox Box;
 	SPoint OnePoint;

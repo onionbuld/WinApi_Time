@@ -8,7 +8,7 @@
 #include "SClock.h"
 
 
-
+#define ID_MYBUTTON 1
 #define M_PI       3.14
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -54,9 +54,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		box = clock.GetBox();
 		center = clock.GetCenter();
 
+		CreateWindow("button", "Кнопка", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 700, 5, 100, 20, hWnd, (HMENU)ID_MYBUTTON, NULL, NULL);
+
 		ReleaseDC(hWnd, hDC);
 		break;
+		
+	case WM_MOUSEMOVE:
+		
+		hDC = GetDC(hWnd);
 
+		if (wParam == MK_CONTROL) {
+			xMouse = LOWORD(lParam);
+			yMouse = HIWORD(lParam);
+
+			clock.SetPosClock(xMouse, yMouse);
+		}
+
+		ReleaseDC(hWnd, hDC);
+		break;
+		
 	case WM_RBUTTONDOWN:
 
 		hDC = GetDC(hWnd);
@@ -75,7 +91,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 		//xMouse = LOWORD(lParam);
 		//yMouse = HIWORD(lParam);
-		
 
 		ReleaseDC(hWnd, hDC);
 		break;
@@ -124,6 +139,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		strcpy_s(str, asctime(newtime));
 		str[strlen(str) - 1] = '\0';
 		InvalidateRect(hWnd, NULL, 1);
+		break;
+
+	case WM_COMMAND:
+		if ((HIWORD(wParam) == 0) && (LOWORD(wParam) == ID_MYBUTTON)) {
+			MessageBox(hWnd, "Ты нажал на кнопку!", "Сообщение!", MB_OK | MB_ICONWARNING);
+		}
+		if (HIWORD(wParam) == 0) {
+			char buf[256];
+			switch (LOWORD(wParam)) {
+			case 40001: 
+				wsprintf(buf, "Это пункт меню? Шутите?");
+				MessageBox(hWnd, buf, "Сообщение!", MB_OK | MB_ICONINFORMATION);
+				break;
+			default:
+				wsprintf(buf, "Код: %d", LOWORD(wParam));
+				MessageBox(hWnd, buf, "Сообщение!", MB_OK | MB_ICONINFORMATION);
+			}
+		}
 		break;
 
 	case WM_DESTROY:
